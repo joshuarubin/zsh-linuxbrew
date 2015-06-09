@@ -2,11 +2,9 @@ if [[ "$OSTYPE" == linux-gnu && -d "$HOME/.linuxbrew" ]]; then
   path[1,0]="$HOME/.linuxbrew/bin"
   manpath[1,0]="$HOME/.linuxbrew/share/man"
 
-  if [[ -z "$INFOPATH" ]]; then
-    INFOPATH="$HOME/.linuxbrew/share/info"
-  else
-    INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-  fi
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
-  export INFOPATH
+  if [[ -e /usr/bin/pkg-config ]]; then
+    export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$(/usr/bin/pkg-config --variable pc_path pkg-config)"
+  fi
 fi
